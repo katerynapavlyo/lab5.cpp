@@ -1,36 +1,38 @@
 #include <iostream>
 #include <cmath>
-using namespace std;
 
 int main() {
-    // Динамічні змінні для a та n
     double *a = new double;
     int *n = new int;
 
-    cout << "Введіть дійсне число a: ";
-    cin >> *a;
-    cout << "Введіть натуральне число n (n > 0): ";
-    cin >> *n;
+    std::cout << "Enter a real number a: ";
+    std::cin >> *a;
+    std::cout << "Enter a natural number n (n > 0): ";
+    std::cin >> *n;
 
-    if (*a == 0 || *n <= 0) {
-        cout << "Некоректні вхідні дані (a не може дорівнювати 0, n має бути > 0)." << endl;
+    if (*a == 0) {
+        std::cout << "Error: ln|0| is undefined!" << std::endl;
         delete a;
         delete n;
-        return 0;
+        return 1;
     }
 
-    // Динамічні змінні для лічильника циклу та суми
+    if (*n <= 0) {
+        std::cout << "Error: n must be a positive integer!" << std::endl;
+        delete a;
+        delete n;
+        return 1;
+    }
+
     double *sum = new double(0.0);
-    int *i = new int(*n);
+    int *i = new int(1);
 
-    while (*i >= 1) {
-        *sum += log(fabs(pow(*a, *i)));
-        (*i)--;
+    for (; *i <= *n; ++(*i)) {
+        *sum += std::log(std::abs(std::pow(*a, *i)));
     }
 
-    cout << "Сума S: " << *sum << endl;
+    std::cout << "Result: " << *sum << std::endl;
 
-    // Звільнення пам'яті
     delete a;
     delete n;
     delete sum;

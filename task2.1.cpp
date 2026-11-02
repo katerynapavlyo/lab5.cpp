@@ -1,38 +1,29 @@
 #include <iostream>
-using namespace std;
 
 int main() {
-    // Динамічні змінні для a, b, c
     int *a = new int;
     int *b = new int;
     int *c = new int;
 
-    cout << "Введіть значення a, b, c: ";
-    cin >> *a >> *b >> *c;
+    std::cout << "Enter a: ";
+    std::cin >> *a;
 
-    // Перевірка порожності множини {b, ..., c}
-    if (*b > *c) {
-        cout << "Множина {b, ..., c} порожня (b > c). Число a не належить множині Z." << endl;
-        delete a;
-        delete b;
-        delete c;
-        return 0;
+    std::cout << "Enter b: ";
+    std::cin >> *b;
+
+    std::cout << "Enter c: ";
+    std::cin >> *c;
+
+    if (*a >= 3 && *a <= 9 && *a >= *b && *a <= *c) {
+        std::cout << "Number a belongs to set Z." << std::endl;
+    } 
+    else {
+        std::cout << "Number a DOES NOT belong to set Z." << std::endl;
     }
 
-    // Динамічна змінна для перевірки належності
-    bool *belongs = new bool((*a >= 3 && *a <= 9) && (*a >= *b && *a <= *c));
-
-    if (*belongs) {
-        cout << "Число a = " << *a << " належить множині Z." << endl;
-    } else {
-        cout << "Число a = " << *a << " НЕ належить множині Z." << endl;
-    }
-
-    // Звільнення пам'яті
     delete a;
     delete b;
     delete c;
-    delete belongs;
 
     return 0;
 }

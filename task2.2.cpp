@@ -1,29 +1,29 @@
 #include <iostream>
 #include <cmath>
-using namespace std;
 
 int main() {
-    // Динамічні змінні для x та y
     double *x = new double;
     double *y = new double;
-
-    cout << "Введіть x та y: ";
-    cin >> *x >> *y;
-
-    // Динамічна змінна для результату z
     double *z = new double;
 
+    std::cout << "Enter x: ";
+    std::cin >> *x;
+
+    std::cout << "Enter y: ";
+    std::cin >> *y;
+
     if (*y < *x) {
-        *z = (*y) * exp(*x);
-    } else if (*y == *x) {
-        *z = (*y) * (*x);
-    } else {
-        *z = (*x) * exp(*y);
+        *z = *y * std::exp(*x);
+    } 
+    else if (*y == *x) {
+        *z = *y * *x;
+    } 
+    else {
+        *z = *x * std::exp(*y);
     }
 
-    cout << "Результат z: " << *z << endl;
+    std::cout << "Result z = " << *z << std::endl;
 
-    // Звільнення пам'яті
     delete x;
     delete y;
     delete z;

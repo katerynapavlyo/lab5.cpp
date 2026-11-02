@@ -1,49 +1,46 @@
 #include <iostream>
 #include <cmath>
-using namespace std;
 
 int main() {
-    // Динамічні змінні для x та точності eps
     double *x = new double;
-    double *eps = new double;
+    double *epsilon = new double;
 
-    cout << "Введіть x (|x| < 1): ";
-    cin >> *x;
+    std::cout << "Enter x (-1 < x < 1): ";
+    std::cin >> *x;
+    std::cout << "Enter epsilon: ";
+    std::cin >> *epsilon;
 
-    if (fabs(*x) >= 1.0) {
-        cout << "Умова |x| < 1 не виконується." << endl;
+    if (std::abs(*x) >= 1) {
+        std::cout << "x must be in range (-1, 1)" << std::endl;
         delete x;
-        delete eps;
+        delete epsilon;
         return 0;
     }
 
-    cout << "Введіть точність eps (наприклад 0.00001): ";
-    cin >> *eps;
-
-    // Динамічні змінні для доданка, лічильника кроків та суми
-    double *term = new double(*x);
-    int *n = new int(0);
     double *sum = new double(0.0);
+    double *a = new double(*x);
+    int *n = new int(0);
 
-    while (fabs(*term) >= *eps) {
-        *sum += *term;
+    while (std::abs(*a) > *epsilon) {
+        *sum += *a;
         (*n)++;
-        *term = (*term) * (*x) * (*x) * (2 * (*n) - 1) / (2 * (*n) + 1);
+        *a *= (*x * *x) * (2 * *n - 1) / (2 * *n + 1);
     }
 
-    // Динамічна змінна для підсумкового результату
-    double *result = new double(2.0 * (*sum));
+    double *approx = new double(2 * *sum);
+    double *real_val = new double(std::log((1 + *x) / (1 - *x)));
 
-    cout << "Обчислена сума ряду: " << *result << endl;
-    cout << "Кількість доданих членів: " << *n << endl;
+    std::cout << "Approx ln((1+x)/(1-x)) = " << *approx << std::endl;
+    std::cout << "Real ln((1+x)/(1-x))   = " << *real_val << std::endl;
+    std::cout << "Iterations: " << *n << std::endl;
 
-    // Звільнення пам'яті
     delete x;
-    delete eps;
-    delete term;
-    delete n;
+    delete epsilon;
     delete sum;
-    delete result;
+    delete a;
+    delete n;
+    delete approx;
+    delete real_val;
 
     return 0;
 }
